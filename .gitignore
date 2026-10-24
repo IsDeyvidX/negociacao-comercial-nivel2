@@ -1,0 +1,8 @@
+.sfdx/
+.sf/
+.localdevserver/
+node_modules/
+.vscode/settings.json
+*.log
+tools/*.apex
+__pycache__/
