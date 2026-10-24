@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Nivel_Aprovacao__c</fullName>
+    <description>Calculado pela Trigger a partir da matriz (Custom Metadata Aprovacao_Nivel__mdt).</description>
+    <label>Nível de Aprovação</label>
+    <type>Picklist</type>
+    <required>false</required>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+                <value>
+                    <fullName>Automática</fullName>
+                    <default>false</default>
+                    <label>Automática</label>
+                </value>
+                <value>
+                    <fullName>Gerente</fullName>
+                    <default>false</default>
+                    <label>Gerente</label>
+                </value>
+                <value>
+                    <fullName>Diretor</fullName>
+                    <default>false</default>
+                    <label>Diretor</label>
+                </value>
+                <value>
+                    <fullName>Financeiro</fullName>
+                    <default>false</default>
+                    <label>Financeiro</label>
+                </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

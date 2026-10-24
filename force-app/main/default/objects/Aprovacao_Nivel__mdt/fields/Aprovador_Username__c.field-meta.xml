@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aprovador_Username__c</fullName>
+    <description>Opcional: username do aprovador padrão do ambiente. Se vazio, usa o primeiro usuário ativo com o Permission Set do nível.</description>
+    <label>Aprovador (Username opcional)</label>
+    <type>Text</type>
+    <length>80</length>
+    <required>false</required>
+    <externalId>false</externalId>
+    <unique>false</unique>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+</CustomField>

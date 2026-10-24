@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Chave_Idempotencia__c</fullName>
+    <description>Id da negociação + ciclo. Evita tarefa de aprovação duplicada em reprocessamentos do Flow.</description>
+    <label>Chave de Idempotência</label>
+    <type>Text</type>
+    <length>80</length>
+    <required>false</required>
+    <externalId>false</externalId>
+</CustomField>

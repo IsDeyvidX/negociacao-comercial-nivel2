@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aprovador__c</fullName>
+    <description>Aprovador esperado enquanto Pendente; usuário que decidiu após a decisão.</description>
+    <label>Aprovador</label>
+    <type>Lookup</type>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Negociações (Aprovador)</relationshipLabel>
+    <relationshipName>Negociacoes_Aprovador</relationshipName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <required>false</required>
+</CustomField>

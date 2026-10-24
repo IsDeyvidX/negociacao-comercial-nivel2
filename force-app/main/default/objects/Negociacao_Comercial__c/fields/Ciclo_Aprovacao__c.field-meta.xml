@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ciclo_Aprovacao__c</fullName>
+    <description>Incrementado a cada submissão (Rascunho -&gt; Pendente).</description>
+    <label>Ciclo de Aprovação</label>
+    <type>Number</type>
+    <precision>3</precision>
+    <scale>0</scale>
+    <required>false</required>
+    <defaultValue>0</defaultValue>
+</CustomField>

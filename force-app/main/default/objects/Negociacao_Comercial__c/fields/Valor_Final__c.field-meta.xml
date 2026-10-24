@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Valor_Final__c</fullName>
+    <description>Valor Bruto - Valor do Desconto.</description>
+    <label>Valor Final</label>
+    <type>Currency</type>
+    <precision>16</precision>
+    <scale>2</scale>
+    <required>false</required>
+    <defaultValue>0</defaultValue>
+    <externalId>false</externalId>
+</CustomField>

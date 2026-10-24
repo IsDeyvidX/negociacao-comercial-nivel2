@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Percentual_Maximo__c</fullName>
+    <description>Limite superior INCLUSIVO.</description>
+    <label>Percentual Máximo (inclusivo)</label>
+    <type>Number</type>
+    <precision>5</precision>
+    <scale>2</scale>
+    <required>true</required>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+</CustomField>

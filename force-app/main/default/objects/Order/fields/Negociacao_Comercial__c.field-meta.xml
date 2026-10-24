@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Negociacao_Comercial__c</fullName>
+    <label>Negociação Comercial</label>
+    <type>Lookup</type>
+    <referenceTo>Negociacao_Comercial__c</referenceTo>
+    <relationshipLabel>Pedidos</relationshipLabel>
+    <relationshipName>Pedidos</relationshipName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <required>false</required>
+</CustomField>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subtotal__c</fullName>
+    <description>Quantidade x Preço Unitário, arredondado HALF_UP em 2 casas. Calculado pela Trigger (campo físico para permitir SUM em SOQL).</description>
+    <label>Subtotal</label>
+    <type>Currency</type>
+    <precision>16</precision>
+    <scale>2</scale>
+    <required>false</required>
+    <externalId>false</externalId>
+</CustomField>
