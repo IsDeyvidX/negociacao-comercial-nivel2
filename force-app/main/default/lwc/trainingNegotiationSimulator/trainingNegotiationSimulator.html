@@ -1,0 +1,91 @@
+<template>
+    <lightning-card title="Simulador de Negociação" icon-name="standard:opportunity">
+        <div class="slds-var-p-horizontal_medium slds-is-relative">
+            <template lwc:if={loading}>
+                <lightning-spinner alternative-text="Carregando" size="small"></lightning-spinner>
+            </template>
+
+            <template lwc:if={hasErrors}>
+                <div class="slds-notify slds-notify_alert slds-alert_error slds-var-m-bottom_small" role="alert">
+                    <ul>
+                        <template for:each={errors} for:item="err">
+                            <li key={err}>{err}</li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+
+            <template for:each={lineViews} for:item="line">
+                <div key={line.key} class="slds-grid slds-gutters slds-grid_vertical-align-end slds-var-m-bottom_x-small">
+                    <div class="slds-col slds-size_5-of-12">
+                        <lightning-combobox label="Produto" data-key={line.key} value={line.productId}
+                            options={line.options} placeholder="Selecione o produto" onchange={handleProduct}>
+                        </lightning-combobox>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12">
+                        <lightning-input type="number" label="Qtd." min="1" step="1" data-key={line.key}
+                            value={line.quantity} onchange={handleQuantity}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12">
+                        <div class="slds-form-element__label">Preço</div>
+                        <template lwc:if={line.hasPrice}>
+                            <lightning-formatted-number value={line.unitPrice} format-style="currency"
+                                currency-code={currencyCode}></lightning-formatted-number>
+                        </template>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12">
+                        <div class="slds-form-element__label">Subtotal</div>
+                        <template lwc:if={line.hasPrice}>
+                            <lightning-formatted-number value={line.subtotal} format-style="currency"
+                                currency-code={currencyCode}></lightning-formatted-number>
+                        </template>
+                    </div>
+                    <div class="slds-col slds-size_1-of-12">
+                        <template lwc:if={line.canRemove}>
+                            <lightning-button-icon icon-name="utility:delete" variant="bare" alternative-text="Remover item"
+                                data-key={line.key} onclick={handleRemoveLine}></lightning-button-icon>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <lightning-button label="Adicionar produto" icon-name="utility:add" onclick={handleAddLine}
+                class="slds-var-m-vertical_x-small"></lightning-button>
+
+            <div class="slds-grid slds-gutters slds-var-m-top_small">
+                <div class="slds-col slds-size_1-of-3">
+                    <lightning-input type="number" label="Desconto (%)" min="0" max="30" step="0.01"
+                        value={discount} onchange={handleDiscount}></lightning-input>
+                    <p class="slds-text-color_weak slds-var-m-top_xx-small">{approvalLabel}</p>
+                </div>
+                <div class="slds-col slds-size_2-of-3">
+                    <lightning-textarea label="Justificativa" value={justification} onchange={handleJustification}
+                        required={requiresJustification}></lightning-textarea>
+                </div>
+            </div>
+
+            <div class="slds-box slds-theme_shade slds-var-m-vertical_medium">
+                <dl class="slds-list_horizontal slds-wrap">
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate">Valor bruto</dt>
+                    <dd class="slds-item_detail">
+                        <lightning-formatted-number value={gross} format-style="currency" currency-code={currencyCode}></lightning-formatted-number>
+                    </dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate">Desconto</dt>
+                    <dd class="slds-item_detail">
+                        <lightning-formatted-number value={discountValue} format-style="currency" currency-code={currencyCode}></lightning-formatted-number>
+                    </dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate"><b>Valor final</b></dt>
+                    <dd class="slds-item_detail">
+                        <b><lightning-formatted-number value={finalValue} format-style="currency" currency-code={currencyCode}></lightning-formatted-number></b>
+                    </dd>
+                </dl>
+                <p class="slds-text-body_small slds-text-color_weak">Prévia informativa: o servidor refaz a precificação e as validações ao salvar.</p>
+            </div>
+        </div>
+        <div slot="footer">
+            <lightning-button label="Salvar rascunho" onclick={handleSaveDraft} disabled={saveDisabled}></lightning-button>
+            <lightning-button label="Salvar e enviar para aprovação" variant="brand" onclick={handleSaveAndSubmit}
+                disabled={saveDisabled} class="slds-var-m-left_x-small"></lightning-button>
+        </div>
+    </lightning-card>
+</template>

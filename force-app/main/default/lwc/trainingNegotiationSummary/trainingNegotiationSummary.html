@@ -1,0 +1,78 @@
+<template>
+    <lightning-card title="Resumo da negociação" icon-name="standard:opportunity">
+        <div class="slds-var-p-horizontal_medium">
+            <template lwc:if={error}>
+                <div class="slds-text-color_error">{error}</div>
+            </template>
+            <template lwc:if={view}>
+                <div class="slds-grid slds-grid_vertical-align-center slds-var-m-bottom_small">
+                    <span class="slds-text-heading_small slds-var-m-right_small">{view.name}</span>
+                    <span class={badgeClass}>{view.status}</span>
+                    <template lwc:if={view.approvalLevel}>
+                        <span class="slds-var-m-left_small slds-text-color_weak">Nível: {view.approvalLevel}</span>
+                    </template>
+                    <template lwc:if={view.cycle}>
+                        <span class="slds-var-m-left_small slds-text-color_weak">Ciclo {view.cycle}</span>
+                    </template>
+                </div>
+
+                <template lwc:if={isRejected}>
+                    <div class="slds-notify slds-notify_alert slds-alert_error slds-var-m-bottom_small" role="alert">
+                        <div>
+                            <b>Motivo da rejeição:</b> {view.rejectionReason}
+                            <template lwc:if={view.approverName}> — {view.approverName}</template>
+                        </div>
+                    </div>
+                </template>
+
+                <template lwc:if={isPending}>
+                    <div class="slds-notify slds-notify_alert slds-alert_warning slds-var-m-bottom_small" role="alert">
+                        <div>Aguardando decisão de: <b>{approverLabel}</b> (nível {view.approvalLevel})</div>
+                    </div>
+                </template>
+
+                <template lwc:if={isApproved}>
+                    <div class="slds-notify slds-notify_alert slds-theme_success slds-var-m-bottom_small" role="alert">
+                        <div>
+                            Negociação aprovada
+                            <template lwc:if={view.decisionDate}> em <lightning-formatted-date-time value={view.decisionDate}
+                                year="numeric" month="2-digit" day="2-digit" hour="2-digit" minute="2-digit"></lightning-formatted-date-time></template>.
+                            <template lwc:if={hasOrder}> Pedido gerado: <b>{view.orderNumber}</b>.</template>
+                        </div>
+                    </div>
+                </template>
+
+                <div class="slds-grid slds-wrap slds-gutters slds-var-m-bottom_small">
+                    <div class="slds-col slds-size_1-of-4">
+                        <div class="slds-text-color_weak">Valor bruto</div>
+                        <lightning-formatted-number value={view.grossValue} format-style="currency" currency-code={currencyCode}></lightning-formatted-number>
+                    </div>
+                    <div class="slds-col slds-size_1-of-4">
+                        <div class="slds-text-color_weak">Desconto</div>
+                        <span>{view.discountPercent}% — </span>
+                        <lightning-formatted-number value={view.discountValue} format-style="currency" currency-code={currencyCode}></lightning-formatted-number>
+                    </div>
+                    <div class="slds-col slds-size_1-of-4">
+                        <div class="slds-text-color_weak">Valor final</div>
+                        <b><lightning-formatted-number value={view.finalValue} format-style="currency" currency-code={currencyCode}></lightning-formatted-number></b>
+                    </div>
+                    <div class="slds-col slds-size_1-of-4">
+                        <div class="slds-text-color_weak">Oportunidade</div>
+                        <span>{view.opportunityName}</span>
+                    </div>
+                </div>
+
+                <template lwc:if={view.justification}>
+                    <div class="slds-var-m-bottom_small">
+                        <div class="slds-text-color_weak">Justificativa</div>
+                        <lightning-formatted-text value={view.justification}></lightning-formatted-text>
+                    </div>
+                </template>
+
+                <template lwc:if={hasItems}>
+                    <lightning-datatable key-field="id" data={view.items} columns={columns} hide-checkbox-column></lightning-datatable>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

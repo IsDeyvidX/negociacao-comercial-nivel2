@@ -1,0 +1,73 @@
+<template>
+    <template lwc:if={view}>
+        <div class="slds-box slds-theme_default slds-var-m-bottom_small">
+            <div class="slds-grid slds-wrap slds-grid_vertical-align-center">
+                <template lwc:if={isDraft}>
+                    <lightning-button label="Editar no simulador" icon-name="utility:edit" onclick={handleOpenSimulator}
+                        class="slds-var-m-right_x-small" disabled={busy}></lightning-button>
+                    <lightning-button label="Enviar para aprovação" variant="brand" icon-name="utility:send" onclick={handleSubmit}
+                        class="slds-var-m-right_x-small" disabled={busy}></lightning-button>
+                </template>
+                <template lwc:if={isPending}>
+                    <template lwc:if={canDecide}>
+                        <lightning-button label="Decidir (aprovar ou rejeitar)" variant="brand" icon-name="utility:approval"
+                            onclick={handleOpenDecision} class="slds-var-m-right_x-small" disabled={busy}></lightning-button>
+                    </template>
+                    <template lwc:else>
+                        <span class="slds-text-color_weak slds-var-m-right_small">Aguardando a decisão do aprovador responsável.</span>
+                    </template>
+                </template>
+                <template lwc:if={canGenerate}>
+                    <lightning-button label="Gerar pedido" variant="brand" icon-name="utility:cart" onclick={handleGenerateOrder}
+                        class="slds-var-m-right_x-small" disabled={busy}></lightning-button>
+                </template>
+                <template lwc:if={hasOrder}>
+                    <lightning-button label="Abrir pedido gerado" icon-name="utility:cart" onclick={handleOpenOrder}
+                        class="slds-var-m-right_x-small"></lightning-button>
+                </template>
+                <template lwc:if={isRejected}>
+                    <lightning-button label="Reabrir para revisão" variant="brand" icon-name="utility:undo" onclick={handleReopen}
+                        class="slds-var-m-right_x-small" disabled={busy}></lightning-button>
+                </template>
+                <template lwc:if={canCancel}>
+                    <lightning-button label="Cancelar negociação" variant="destructive-text" onclick={handleCancel}
+                        disabled={busy}></lightning-button>
+                </template>
+            </div>
+        </div>
+    </template>
+
+    <template lwc:if={showSimulator}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon icon-name="utility:close" variant="bare-inverse" alternative-text="Fechar"
+                        class="slds-modal__close" onclick={handleCloseSimulator}></lightning-button-icon>
+                    <h2 class="slds-modal__title slds-hyphenate">Editar negociação</h2>
+                </header>
+                <div class="slds-modal__content slds-var-p-around_medium">
+                    <c-training-negotiation-simulator opportunity-id={view.opportunityId} negotiation-id={recordId}
+                        onsaved={handleSimulatorSaved}></c-training-negotiation-simulator>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <template lwc:if={showDecision}>
+        <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open slds-modal_medium">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning-button-icon icon-name="utility:close" variant="bare-inverse" alternative-text="Fechar"
+                        class="slds-modal__close" onclick={handleCloseDecision}></lightning-button-icon>
+                    <h2 class="slds-modal__title slds-hyphenate">Decisão da negociação</h2>
+                </header>
+                <div class="slds-modal__content slds-var-p-around_medium">
+                    <lightning-flow flow-api-name="Negociacao_Decisao_Aprovacao" flow-input-variables={flowInputs}
+                        onstatuschange={handleFlowStatus}></lightning-flow>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
